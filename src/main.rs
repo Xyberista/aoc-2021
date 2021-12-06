@@ -4,5 +4,5 @@ mod utils;
 use days::*;
 
 fn main() {
-    day_6();
+    day_5();
 }
