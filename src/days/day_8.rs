@@ -56,7 +56,6 @@ fn part_two(input: &str) -> i32 {
     t
 }
 
-/// Returns sorted segments grouped by length
 fn to_map(row: &str) -> HashMap<i32, Vec<String>> {
     let mut m: HashMap<i32, Vec<String>> = HashMap::new();
     for i in row.replace("|", "").split(" ") {
@@ -85,7 +84,7 @@ fn parse_row(row: &str) -> HashMap<String, i32> {
     let seven = lens[&3][0].clone();
     let eight = lens[&7][0].clone();
 
-    let a: char = seven.chars().filter(|c| !one.contains(*c)).next().unwrap();
+    let _a: char = seven.chars().filter(|c| !one.contains(*c)).next().unwrap();
     let bd: String = four.chars().filter(|c| !one.contains(*c)).collect();
     let eg: String = eight.chars().filter(|c| !seven.contains(*c) && !bd.contains(*c)).collect();
 

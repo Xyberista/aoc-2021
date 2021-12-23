@@ -138,7 +138,7 @@ mod test {
 
     #[test]
     fn test_two() {
-        let input = get_input(3);
+        // let input = get_input(3);
         // assert_eq!(part_two(&input), 0);
     }
 }

@@ -56,7 +56,7 @@ mod test {
 
     #[test]
     fn test_two() {
-        let input = get_input(1);
+        // let input = get_input(1);
         // assert_eq!(part_two(&input), 0);
     }
 }
