@@ -6,5 +6,5 @@ mod utils;
 use days::*;
 
 fn main() {
-    day_22();
+    day_25();
 }

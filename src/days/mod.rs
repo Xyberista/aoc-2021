@@ -21,6 +21,8 @@ pub mod day_20;
 pub mod day_21;
 pub mod day_22;
 pub mod day_23;
+pub mod day_24;
+pub mod day_25;
 
 pub use day_1::day_1;
 pub use day_2::day_2;
@@ -45,3 +47,5 @@ pub use day_20::day_20;
 pub use day_21::day_21;
 pub use day_22::day_22;
 pub use day_23::day_23;
+pub use day_24::day_24;
+pub use day_25::day_25;
