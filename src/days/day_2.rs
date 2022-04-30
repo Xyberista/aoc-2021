@@ -35,7 +35,7 @@ fn part_two(input: &str) -> i32 {
             "forward" => {
                 h += b;
                 d += aim * b;
-            },
+            }
             "down" => aim += b,
             "up" => aim -= b,
             _ => panic!(),

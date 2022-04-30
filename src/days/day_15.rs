@@ -41,7 +41,7 @@ fn traverse(map: &Map, size: (usize, usize)) -> u32 {
     loop {
         if unvisited.len() > 0 {
             let mut min = u32::MAX;
-            let mut node: Point = (0,0);
+            let mut node: Point = (0, 0);
             for n in &unvisited {
                 let d = distances[n];
                 if d < min {
@@ -114,5 +114,5 @@ fn part_two(map: Map, size: (usize, usize)) -> u32 {
     //     }
     //     println!();
     // }
-    traverse(&new_map, (size.0 * 5,size.1 * 5))
+    traverse(&new_map, (size.0 * 5, size.1 * 5))
 }

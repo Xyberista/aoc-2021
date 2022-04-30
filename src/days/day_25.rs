@@ -1,4 +1,4 @@
-use std::collections::{HashMap, BTreeMap};
+use std::collections::BTreeMap;
 
 use super::super::utils::*;
 
@@ -15,7 +15,7 @@ pub fn day_25() {
         mx = line.len();
         for (x, c) in line.chars().enumerate() {
             if c != '.' {
-                map.insert((x,y), c);
+                map.insert((x, y), c);
             }
         }
     }
@@ -27,13 +27,13 @@ pub fn day_25() {
 fn step_one(map: &Map, mx: usize, my: usize) -> Option<Map> {
     let mut a: Map = BTreeMap::new();
     // horiz
-    for ((x,y), c) in map {
+    for ((x, y), c) in map {
         if *c == '>' {
             let nx = if *x + 1 == mx { 0 } else { *x + 1 };
             if map.contains_key(&(nx, *y)) {
-                a.insert((*x,*y), *c);
+                a.insert((*x, *y), *c);
             } else {
-                a.insert((nx,*y), *c);
+                a.insert((nx, *y), *c);
             }
         } else {
             a.insert((*x, *y), *c);
@@ -41,13 +41,13 @@ fn step_one(map: &Map, mx: usize, my: usize) -> Option<Map> {
     }
     // vert
     let mut b: Map = BTreeMap::new();
-    for ((x,y), c) in &a {
+    for ((x, y), c) in &a {
         if *c == 'v' {
             let ny = if *y + 1 == my { 0 } else { *y + 1 };
             if a.contains_key(&(*x, ny)) {
-                b.insert((*x,*y), *c);
+                b.insert((*x, *y), *c);
             } else {
-                b.insert((*x,ny), *c);
+                b.insert((*x, ny), *c);
             }
         } else {
             b.insert((*x, *y), *c);

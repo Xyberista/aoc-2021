@@ -1,7 +1,5 @@
 use core::fmt;
-use std::collections::{HashMap, BinaryHeap, BTreeSet, HashSet};
-
-use super::super::utils::*;
+use std::collections::{BinaryHeap, HashSet};
 
 /*
 #############
@@ -27,15 +25,24 @@ impl M {
         let b = R::new(size, 'B', b);
         let c = R::new(size, 'C', c);
         let d = R::new(size, 'D', d);
-        let mut rooms: Vec<Option<R>> = Vec::from([None, None, Some(a), None, Some(b), None, Some(c), None, Some(d), None, None]);
+        let rooms: Vec<Option<R>> = Vec::from([
+            None,
+            None,
+            Some(a),
+            None,
+            Some(b),
+            None,
+            Some(c),
+            None,
+            Some(d),
+            None,
+            None,
+        ]);
         for r in rooms {
             map.push(P::new('.', r));
         }
 
-        Self {
-            map,
-            energy: 0,
-        }
+        Self { map, energy: 0 }
     }
 
     fn is_done(&self) -> bool {
@@ -100,7 +107,7 @@ impl M {
                                     'B' => 10,
                                     'C' => 100,
                                     'D' => 1000,
-                                    _ => unreachable!()
+                                    _ => unreachable!(),
                                 };
                                 new.energy += steps * multiplier;
                                 moves.push(new)
@@ -131,7 +138,7 @@ impl M {
                                     'B' => 10,
                                     'C' => 100,
                                     'D' => 1000,
-                                    _ => unreachable!()
+                                    _ => unreachable!(),
                                 };
                                 new.energy += steps * multiplier;
                                 moves.push(new)
@@ -244,10 +251,7 @@ struct P {
 
 impl P {
     fn new(occ: char, room: Option<R>) -> Self {
-        Self {
-            occ,
-            room,
-        }
+        Self { occ, room }
     }
 }
 
@@ -260,11 +264,7 @@ struct R {
 
 impl R {
     fn new(size: usize, occ: char, room: Room) -> Self {
-        Self {
-            size,
-            occ,
-            room,
-        }
+        Self { size, occ, room }
     }
 }
 
@@ -333,48 +333,55 @@ fn test() {
     println!("Energy: {}", map.energy);
 }
 
-#[test]
-fn test_one() {
-    let a = vec![];
-    let b = vec!['B', 'B'];
-    let c = vec!['C', 'C'];
-    let d = vec!['D', 'D'];
-    let mut map = M::new(2, a, b, c, d);
-    map.map[0].occ = 'A';
-    map.map[1].occ = 'A';
-    let mut moves: BinaryHeap<M> = BinaryHeap::from(map.valid_moves());
-    eprintln!("{}", map);
-    let map = moves.pop().unwrap();
-    eprintln!("{}", map);
-    moves.extend(map.valid_moves());
-    for m in moves {
-        println!("{}", m);
-    }
-}
+#[cfg(test)]
+mod tests {
+    use std::collections::{BTreeSet, BinaryHeap};
 
-#[test]
-fn test_two() {
-    let a = vec!['B', 'A'];
-    let b = vec!['A', 'B'];
-    let c = vec!['C', 'C'];
-    let d = vec!['D', 'D'];
-    let mut map = M::new(2, a, b, c, d);
-    let mut moves: BinaryHeap<M> = BinaryHeap::from(map.valid_moves());
-    let mut visited = BTreeSet::new();
-    eprintln!("{}", map);
-    loop {
-        map = moves.pop().unwrap();
-        if map.is_done() {
-            break;
-        } else {
-            if visited.contains(&map) {
-                continue;
-            } else {
-                visited.insert(map.clone());
-                moves.extend(map.valid_moves());
-            }
+    use crate::days::day_23::M;
+
+    #[test]
+    fn test_one() {
+        let a = vec![];
+        let b = vec!['B', 'B'];
+        let c = vec!['C', 'C'];
+        let d = vec!['D', 'D'];
+        let mut map = M::new(2, a, b, c, d);
+        map.map[0].occ = 'A';
+        map.map[1].occ = 'A';
+        let mut moves: BinaryHeap<M> = BinaryHeap::from(map.valid_moves());
+        eprintln!("{}", map);
+        let map = moves.pop().unwrap();
+        eprintln!("{}", map);
+        moves.extend(map.valid_moves());
+        for m in moves {
+            println!("{}", m);
         }
     }
-    eprintln!("{}", map);
-    // assert!(moves.into_iter().any(|m| m.is_done()))
+
+    #[test]
+    fn test_two() {
+        let a = vec!['B', 'A'];
+        let b = vec!['A', 'B'];
+        let c = vec!['C', 'C'];
+        let d = vec!['D', 'D'];
+        let mut map = M::new(2, a, b, c, d);
+        let mut moves: BinaryHeap<M> = BinaryHeap::from(map.valid_moves());
+        let mut visited = BTreeSet::new();
+        eprintln!("{}", map);
+        loop {
+            map = moves.pop().unwrap();
+            if map.is_done() {
+                break;
+            } else {
+                if visited.contains(&map) {
+                    continue;
+                } else {
+                    visited.insert(map.clone());
+                    moves.extend(map.valid_moves());
+                }
+            }
+        }
+        eprintln!("{}", map);
+        // assert!(moves.into_iter().any(|m| m.is_done()))
+    }
 }

@@ -34,7 +34,7 @@ fn get_heights((xs, xe): P, (ys, ye): P) -> Vec<i32> {
     let mut heights = Vec::new();
     for y in -500..500 {
         for x in -500..500 {
-            if let Some(height) = run((x,y), (xs,xe), (ys,ye)) {
+            if let Some(height) = run((x, y), (xs, xe), (ys, ye)) {
                 heights.push(height);
             }
         }
@@ -46,7 +46,7 @@ fn part_one(_input: &str, (xs, xe): P, (ys, ye): P) -> i32 {
     let mut heights = Vec::new();
     for y in -500..500 {
         for x in -500..500 {
-            let r = run((x,y), (xs,xe), (ys,ye));
+            let r = run((x, y), (xs, xe), (ys, ye));
             if let Some(height) = r {
                 heights.push(height);
             }
@@ -60,7 +60,7 @@ fn part_two(_input: &str, (xs, xe): P, (ys, ye): P) -> usize {
     let mut heights = Vec::new();
     for y in -500..500 {
         for x in -500..500 {
-            let r = run((x,y), (xs,xe), (ys,ye));
+            let r = run((x, y), (xs, xe), (ys, ye));
             if let Some(height) = r {
                 heights.push(height);
             }
@@ -70,7 +70,7 @@ fn part_two(_input: &str, (xs, xe): P, (ys, ye): P) -> usize {
 }
 
 fn run(v: P, (xs, xe): P, (ys, ye): P) -> Option<i32> {
-    let mut p: P = (0,0);
+    let mut p: P = (0, 0);
     let mut v = v;
     let x_range = xs..=xe;
     let y_range = ys..=ye;
@@ -80,7 +80,7 @@ fn run(v: P, (xs, xe): P, (ys, ye): P) -> Option<i32> {
         p.1 += v.1;
         v.0 += (-v.0).signum();
         v.1 -= 1;
-        
+
         heights.push(p.1);
 
         if v.0 == 0 {

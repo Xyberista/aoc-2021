@@ -26,11 +26,7 @@ fn print_image(image: &Image) {
 }
 
 fn expand_image(_algo: &[char], image: Image, steps: usize) -> Image {
-    let f = if steps % 2 == 0 {
-        '.'
-    } else {
-        '#'
-    };
+    let f = if steps % 2 == 0 { '.' } else { '#' };
     let empty = vec![f; image.len() + 2];
     let mut new: Image = vec![empty.clone()];
     for line in image {
@@ -48,7 +44,17 @@ fn step_one(algo: &[char], image: Image, steps: usize) -> Image {
     let image = expand_image(algo, image, steps);
     let mut new: Image = Vec::new();
     // (row, col)
-    let square = [(-1,-1), (-1,0), (-1,1), (0, -1), (0, 0), (0, 1), (1, -1), (1, 0), (1, 1)];
+    let square = [
+        (-1, -1),
+        (-1, 0),
+        (-1, 1),
+        (0, -1),
+        (0, 0),
+        (0, 1),
+        (1, -1),
+        (1, 0),
+        (1, 1),
+    ];
     let my = image.len();
     let mx = image[0].len();
     for y in 0..my {
@@ -61,15 +67,14 @@ fn step_one(algo: &[char], image: Image, steps: usize) -> Image {
                 if nx >= 0 && nx < mx as i32 && ny >= 0 && ny < my as i32 {
                     bin.push(image[ny as usize][nx as usize]);
                 } else {
-                    let c = if steps % 2 == 0 {
-                        '.'
-                    } else {
-                        '#'
-                    };
+                    let c = if steps % 2 == 0 { '.' } else { '#' };
                     bin.push(c);
                 }
             }
-            let bin = bin.chars().map(|c| if c == '#' { '1' } else { '0' }).collect::<String>();
+            let bin = bin
+                .chars()
+                .map(|c| if c == '#' { '1' } else { '0' })
+                .collect::<String>();
             let bin = usize::from_str_radix(&bin, 2).unwrap();
             let new_char = algo[bin];
             row.push(new_char);

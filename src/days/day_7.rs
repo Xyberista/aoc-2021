@@ -7,7 +7,10 @@ pub fn day_7() {
 }
 
 fn part_one(input: &str) -> i32 {
-    let ps: Vec<i32> = input.split(',').map(|s| s.parse::<i32>().unwrap()).collect();
+    let ps: Vec<i32> = input
+        .split(',')
+        .map(|s| s.parse::<i32>().unwrap())
+        .collect();
     let mut v = Vec::new();
     for destination in &ps {
         let mut fuel = 0;
@@ -22,7 +25,10 @@ fn part_one(input: &str) -> i32 {
 }
 
 fn part_two(input: &str) -> i32 {
-    let ps: Vec<i32> = input.split(',').map(|s| s.parse::<i32>().unwrap()).collect();
+    let ps: Vec<i32> = input
+        .split(',')
+        .map(|s| s.parse::<i32>().unwrap())
+        .collect();
     let mut v = Vec::new();
     for destination in &ps {
         let mut fuel = 0;

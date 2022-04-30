@@ -79,15 +79,19 @@ fn get_most<'a>(possible: Vec<&'a str>) -> Vec<i32> {
             }
         }
     }
-    let most: Vec<i32> = ones.iter().zip(zeros).map(|(&a, b)| {
-        if a > b {
-            1
-        } else if b > a {
-            0
-        } else {
-            1
-        }
-    }).collect();
+    let most: Vec<i32> = ones
+        .iter()
+        .zip(zeros)
+        .map(|(&a, b)| {
+            if a > b {
+                1
+            } else if b > a {
+                0
+            } else {
+                1
+            }
+        })
+        .collect();
     most
 }
 
@@ -103,15 +107,19 @@ fn get_least<'a>(possible: Vec<&'a str>) -> Vec<i32> {
             }
         }
     }
-    let most: Vec<i32> = ones.iter().zip(zeros).map(|(&a, b)| {
-        if a > b {
-            0
-        } else if b > a {
-            1
-        } else {
-            0
-        }
-    }).collect();
+    let most: Vec<i32> = ones
+        .iter()
+        .zip(zeros)
+        .map(|(&a, b)| {
+            if a > b {
+                0
+            } else if b > a {
+                1
+            } else {
+                0
+            }
+        })
+        .collect();
     most
 }
 

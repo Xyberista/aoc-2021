@@ -1,4 +1,4 @@
-use std::collections::{HashSet, BTreeMap};
+use std::collections::{BTreeMap, HashSet};
 
 use super::super::utils::*;
 
@@ -33,7 +33,7 @@ pub fn day_13() {
     }
 
     let sizes = get_paper_after_fold(&folds, mx, my);
-    let one = get_paper_after_fold(&[folds[0].clone()], mx+1, my+1);
+    let one = get_paper_after_fold(&[folds[0].clone()], mx + 1, my + 1);
     // println!("{} {}", paper.len(), paper[0].len());
 
     println!("Part 1: {}", part_one(&map, &folds[0], one));
@@ -85,7 +85,7 @@ fn part_one(paper: &HashSet<Point>, fold: &Fold, (sx, sy): (usize, usize)) -> us
 
     let mut dots = 0;
     for (x, y) in new_paper {
-        if x < sx+1 && y < sy+1 {
+        if x < sx + 1 && y < sy + 1 {
             dots += 1;
         }
     }

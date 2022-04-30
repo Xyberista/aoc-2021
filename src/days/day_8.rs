@@ -48,10 +48,10 @@ fn part_two(input: &str) -> i32 {
     let mut t = 0;
     for line in input.lines() {
         let (pre, out) = line.split_once(" | ").unwrap();
-       let map = parse_row(pre);
-       let digits: String = out.split(" ").map(|s| to_digit(&map, s)).collect();
-       let number = digits.parse::<i32>().unwrap();
-       t += number;
+        let map = parse_row(pre);
+        let digits: String = out.split(" ").map(|s| to_digit(&map, s)).collect();
+        let number = digits.parse::<i32>().unwrap();
+        t += number;
     }
     t
 }
@@ -86,7 +86,10 @@ fn parse_row(row: &str) -> HashMap<String, i32> {
 
     let _a: char = seven.chars().filter(|c| !one.contains(*c)).next().unwrap();
     let bd: String = four.chars().filter(|c| !one.contains(*c)).collect();
-    let eg: String = eight.chars().filter(|c| !seven.contains(*c) && !bd.contains(*c)).collect();
+    let eg: String = eight
+        .chars()
+        .filter(|c| !seven.contains(*c) && !bd.contains(*c))
+        .collect();
 
     let mut two: String = String::new();
     let mut three: String = String::new();
@@ -105,7 +108,7 @@ fn parse_row(row: &str) -> HashMap<String, i32> {
     let mut zero: String = String::new();
     let mut six: String = String::new();
     let mut nine: String = String::new();
-    
+
     for s in &lens[&6] {
         if !one.chars().all(|c| s.contains(c)) {
             six = s.to_owned();

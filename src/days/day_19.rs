@@ -32,7 +32,7 @@ fn distance(a: &Point, b: &Point) -> (i64, i64, i64) {
     let pa = (b.0 - a.0).pow(2);
     let pb = (b.1 - a.1).pow(2);
     let pc = (b.2 - a.2).pow(2);
-    (pa , pb , pc)
+    (pa, pb, pc)
 }
 
 fn orient(shift: usize, p: &Point) -> Point {
@@ -70,7 +70,7 @@ fn orient(shift: usize, p: &Point) -> Point {
         21 => (-y, z, -x),
         22 => (-z, -y, -x),
         23 => (y, -z, -x),
-        _ => unimplemented!()
+        _ => unimplemented!(),
     }
 }
 
@@ -171,10 +171,7 @@ fn compare_two(a: &Vec<Point>, b: &Vec<Point>) -> Option<(i64, i64, i64)> {
 }
 
 /// Returns (orientation, location of scanner)
-fn find_orientation(
-    a: &Vec<Point>,
-    b: &Vec<Point>,
-) -> Option<(usize, (i64, i64, i64))> {
+fn find_orientation(a: &Vec<Point>, b: &Vec<Point>) -> Option<(usize, (i64, i64, i64))> {
     for shift in 0..24 {
         let mut new_b = b.clone();
         orient_scanner(shift, &mut new_b);

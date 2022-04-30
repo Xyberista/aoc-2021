@@ -1,7 +1,5 @@
 use std::collections::HashMap;
 
-
-
 #[derive(Clone)]
 struct Player {
     position: i64,

@@ -31,7 +31,7 @@ fn step_one(template: String, rules: &HashMap<&str, char>) -> String {
     while changes.len() != 0 {
         let (new, index) = changes.remove(0);
         c.insert(index, new);
-        changes = changes.into_iter().map(|(i,v)| (i, v+1)).collect();
+        changes = changes.into_iter().map(|(i, v)| (i, v + 1)).collect();
     }
     c.into_iter().collect()
 }

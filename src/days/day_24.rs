@@ -43,7 +43,7 @@ fn part_one() -> [i64; 14] {
                                                     for m in r.clone() {
                                                         // 14
                                                         for n in r.clone() {
-                                                            let z = run_block(0, a, 1,14,12);
+                                                            let z = run_block(0, a, 1, 14, 12);
                                                             let z = run_block(z, b, 1, 15, 7);
                                                             let z = run_block(z, c, 1, 12, 1);
                                                             let z = run_block(z, d, 1, 11, 2);
@@ -58,7 +58,10 @@ fn part_one() -> [i64; 14] {
                                                             let z = run_block(z, m, 26, 0, 3);
                                                             let z = run_block(z, n, 26, -4, 11);
                                                             if z == 0 {
-                                                                return [a,b,c,d,e,f,g,h,i,j,k,l,m,n];
+                                                                return [
+                                                                    a, b, c, d, e, f, g, h, i, j,
+                                                                    k, l, m, n,
+                                                                ];
                                                             }
                                                         }
                                                     }
@@ -110,7 +113,7 @@ fn part_two() -> [i64; 14] {
                                                     for m in r.clone() {
                                                         // 14
                                                         for n in r.clone() {
-                                                            let z = run_block(0, a, 1,14,12);
+                                                            let z = run_block(0, a, 1, 14, 12);
                                                             let z = run_block(z, b, 1, 15, 7);
                                                             let z = run_block(z, c, 1, 12, 1);
                                                             let z = run_block(z, d, 1, 11, 2);
@@ -125,7 +128,10 @@ fn part_two() -> [i64; 14] {
                                                             let z = run_block(z, m, 26, 0, 3);
                                                             let z = run_block(z, n, 26, -4, 11);
                                                             if z == 0 {
-                                                                return [a,b,c,d,e,f,g,h,i,j,k,l,m,n];
+                                                                return [
+                                                                    a, b, c, d, e, f, g, h, i, j,
+                                                                    k, l, m, n,
+                                                                ];
                                                             }
                                                         }
                                                     }

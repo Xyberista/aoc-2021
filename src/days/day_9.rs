@@ -109,16 +109,16 @@ fn find_adj(map: &[Vec<u32>], x: usize, y: usize) -> Vec<(usize, usize)> {
     let m_y = map.len();
     let mut adj = Vec::new();
     if x > 0 {
-        adj.push((x-1, y));
+        adj.push((x - 1, y));
     }
     if x < m_x - 1 {
-        adj.push((x+1, y));
+        adj.push((x + 1, y));
     }
     if y > 0 {
-        adj.push((x, y-1));
+        adj.push((x, y - 1));
     }
     if y < m_y - 1 {
-        adj.push((x, y+1));
+        adj.push((x, y + 1));
     }
     adj
 }
