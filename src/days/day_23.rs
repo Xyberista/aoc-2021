@@ -224,18 +224,17 @@ impl fmt::Display for M {
             }
         }
         writeln!(f, "        Energy: {}", self.energy)?;
-        let mut r1 = [' '; 11];
-        let mut r2 = [' '; 11];
-        for (i, r) in rooms.into_iter().enumerate() {
-            r1[2 + i * 2] = *r.room.get(1).unwrap_or(&'.');
-            r2[2 + i * 2] = *r.room.get(0).unwrap_or(&'.');
+        let mut rows = vec![[' '; 11]; rooms[0].size];
+        for (i, room) in rooms.into_iter().enumerate() {
+            for (j, row) in rows.iter_mut().rev().enumerate() {
+                row[2 + i * 2] = *room.room.get(j).unwrap_or(&'.');
+            }
         }
-        for x in r1 {
-            write!(f, "{}", x)?;
-        }
-        write!(f, "\n")?;
-        for x in r2 {
-            write!(f, "{}", x)?;
+        for row in rows {
+            for x in row {
+                write!(f, "{}", x)?;
+            }
+            write!(f, "\n")?;
         }
         write!(f, "\n")?;
 
