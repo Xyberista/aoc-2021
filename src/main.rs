@@ -1,6 +1,6 @@
 #![allow(dead_code)]
 
-mod days;
+pub mod days;
 mod days_optimized;
 mod utils;
 
