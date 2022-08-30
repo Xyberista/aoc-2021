@@ -1,12 +1,6 @@
-#![allow(dead_code)]
-
-pub mod days;
-mod days_optimized;
-mod utils;
-
-// use days::*;
-use days_optimized::*;
+// use aoc_2021::days;
+use aoc_2021::{days_optimized, utils::Output};
 
 fn main() {
-    day_15();
+    days_optimized::day_15(Output::Print);
 }

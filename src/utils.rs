@@ -7,3 +7,8 @@ pub fn get_input(day: i32) -> String {
     file.read_to_string(&mut buf).unwrap();
     buf
 }
+
+pub enum Output {
+    Return,
+    Print,
+}

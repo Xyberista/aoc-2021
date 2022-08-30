@@ -4,9 +4,9 @@ use super::super::utils::*;
 
 /// (X, Y)
 type Point = (usize, usize);
-type Map = BTreeMap<Point, u32>;
+type Map = BTreeMap<Point, usize>;
 
-pub fn day_15() {
+pub fn day_15(output: Output) {
     let input = get_input(15);
     let mut map: Map = BTreeMap::new();
     let mut h = 0;
@@ -15,24 +15,37 @@ pub fn day_15() {
         h = line.len();
         v += 1;
         for (x, c) in line.chars().enumerate() {
-            let n = c.to_digit(10).unwrap();
+            let n = c.to_digit(10).unwrap() as usize;
             map.insert((x, y), n);
         }
     }
-    // println!("Part 1: {}", part_one(&map, (h, v)));
-    println!("Part 2: {}", part_two(map, (h, v)));
+    
+    run(map, (h, v), output).unwrap();
 }
 
-fn traverse(map: &Map, size: (usize, usize)) -> u32 {
+fn run(map: Map, size: (usize, usize), output: Output) -> Option<(usize, usize)> {
+    let one = part_one(&map, size);
+    let two = part_two(map, size);
+    match output {
+        Output::Return => Some((one, two)),
+        Output::Print => {
+            println!("Part 1: {one}");
+            println!("Part 2: {two}");
+            None
+        }
+    }
+}
+
+fn traverse(map: &Map, size: (usize, usize)) -> usize {
     let mut visited: HashSet<Point> = HashSet::new();
     let mut unvisited: HashSet<Point> = HashSet::new();
-    let mut distances: BTreeMap<Point, u32> = BTreeMap::new();
+    let mut distances: BTreeMap<Point, usize> = BTreeMap::new();
     let mut path: BTreeMap<Point, Vec<Point>> = BTreeMap::new();
     path.insert((0, 0), vec![]);
 
     for y in 0..size.1 {
         for x in 0..size.0 {
-            distances.insert((x, y), u32::MAX);
+            distances.insert((x, y), usize::MAX);
         }
     }
     distances.insert((0, 0), 0);
@@ -40,7 +53,7 @@ fn traverse(map: &Map, size: (usize, usize)) -> u32 {
 
     loop {
         if unvisited.len() > 0 {
-            let mut min = u32::MAX;
+            let mut min = usize::MAX;
             let mut node: Point = (0, 0);
             for n in &unvisited {
                 let d = distances[n];
@@ -85,12 +98,12 @@ fn traverse(map: &Map, size: (usize, usize)) -> u32 {
     distances[&(size.0 - 1, size.1 - 1)]
 }
 
-fn part_one(map: &Map, size: (usize, usize)) -> u32 {
+fn part_one(map: &Map, size: (usize, usize)) -> usize {
     traverse(map, size)
 }
 
-fn part_two(map: Map, size: (usize, usize)) -> u32 {
-    let mut new_map: BTreeMap<Point, u32> = BTreeMap::new();
+fn part_two(map: Map, size: (usize, usize)) -> usize {
+    let mut new_map: BTreeMap<Point, usize> = BTreeMap::new();
     // tile board
     for dy in 0..5 {
         // tile a row
@@ -98,7 +111,7 @@ fn part_two(map: Map, size: (usize, usize)) -> u32 {
             for ((x, y), v) in &map {
                 let nx = dx * size.0 + *x;
                 let ny = dy * size.1 + *y;
-                let mut nv = (*v) + dx as u32 + dy as u32;
+                let mut nv = (*v) + dx as usize + dy as usize;
                 while nv > 9 {
                     nv -= 9;
                 }

@@ -28,9 +28,8 @@ impl PartialOrd for Path {
     }
 }
 
-pub fn day_15() {
-    let input = get_input(15);
-    let board: Board = input
+pub fn get_board() -> Board {
+    get_input(15)
         .lines()
         .enumerate()
         .flat_map(|(row, line)| {
@@ -38,17 +37,38 @@ pub fn day_15() {
                 .enumerate()
                 .map(move |(col, c)| ((row, col), c.to_digit(10).unwrap() as usize))
         })
-        .collect::<Board>();
-    // println!("{:?}", board);
-
-    println!("{}", part_1(board.clone()));
+        .collect::<Board>()
 }
 
-fn part_1(board: Board) -> usize {
+pub fn day_15(output: Output) -> Option<(usize, usize)> {
+    let board: Board = get_board();
+    // println!("{:?}", board);
+
+    run(board, output)
+}
+
+fn run(board: Board, output: Output) -> Option<(usize, usize)> {
+    let one = part_1(&board);
+    let two = part_2(&board);
+    match output {
+        Output::Return => Some((one, two)),
+        Output::Print => {
+            println!("Part 1: {one}");
+            println!("Part 2: {two}");
+            None
+        }
+    }
+}
+
+pub fn part_1(board: &Board) -> usize {
     shortest_path(board, (99, 99), 100).unwrap()
 }
 
-fn shortest_path(board: Board, goal: Position, max: usize) -> Option<usize> {
+pub fn part_2(board: &Board) -> usize {
+    shortest_path(board, (499, 499), 500).unwrap()
+}
+
+fn shortest_path(board: &Board, goal: Position, max: usize) -> Option<usize> {
     let mut dist: HashMap<Position, Risk> = HashMap::new();
     let mut queue: BinaryHeap<Path> = BinaryHeap::new();
 
@@ -72,9 +92,9 @@ fn shortest_path(board: Board, goal: Position, max: usize) -> Option<usize> {
             continue;
         }
 
-        for new_position in get_new_positions(position, max) {
+        for new_position @ (new_row, new_col) in get_new_positions(position, max) {
             let next = Path {
-                total_risk: total_risk + board[&new_position],
+                total_risk: total_risk + board[&(new_row % 100, new_col % 100)],
                 position: new_position,
             };
 
