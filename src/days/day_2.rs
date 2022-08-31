@@ -1,12 +1,16 @@
 use super::super::utils::*;
 
+pub fn input() -> String {
+    get_input(2)
+}
+
 pub fn day_2() {
-    let input = get_input(2);
+    let input = input();
     println!("Part 1: {}", part_one(&input));
     println!("Part 2: {}", part_two(&input));
 }
 
-fn part_one(input: &str) -> i32 {
+pub fn part_one(input: &str) -> i32 {
     let mut h = 0;
     let mut d = 0;
     for line in input.lines() {
@@ -23,7 +27,7 @@ fn part_one(input: &str) -> i32 {
     h * d
 }
 
-fn part_two(input: &str) -> i32 {
+pub fn part_two(input: &str) -> i32 {
     let mut h = 0;
     let mut d = 0;
     let mut aim = 0;
