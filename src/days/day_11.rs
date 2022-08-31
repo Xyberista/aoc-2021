@@ -41,7 +41,7 @@ impl Display for Board {
                 };
                 write!(f, "{}", c)?;
             }
-            writeln!(f, "")?;
+            writeln!(f)?;
         }
         Ok(())
     }
@@ -147,10 +147,7 @@ impl Board {
 
         for (y, row) in b.into_iter().enumerate() {
             for (x, c) in row.into_iter().enumerate() {
-                let v = match c {
-                    Some(v) => v,
-                    None => 0,
-                };
+                let v = c.unwrap_or(0);
                 self.board[y][x] = Some(v);
             }
         }

@@ -11,8 +11,8 @@ pub fn day_19() {
     for (i, scan) in input.split("\n\n").enumerate() {
         let mut points: Vec<Point> = Vec::new();
         let lines = scan.lines().collect::<Vec<_>>();
-        for &line in lines[1..].into_iter() {
-            let s = line.trim().split(",").collect::<Vec<_>>();
+        for &line in lines[1..].iter() {
+            let s = line.trim().split(',').collect::<Vec<_>>();
             let a = s[0].parse::<i64>().unwrap();
             let b = s[1].parse::<i64>().unwrap();
             let c = s[2].parse::<i64>().unwrap();
@@ -75,7 +75,7 @@ fn orient(shift: usize, p: &Point) -> Point {
 }
 
 fn orient_scanner(shift: usize, sc: &mut Vec<Point>) {
-    *sc = sc.into_iter().map(|p| orient(shift, p)).collect();
+    *sc = sc.iter_mut().map(|p| orient(shift, p)).collect();
 }
 
 fn find_pairs(sc_a: &Vec<Point>, sc_b: &Vec<Point>) -> (Vec<Point>, Vec<Point>) {
@@ -171,9 +171,9 @@ fn compare_two(a: &Vec<Point>, b: &Vec<Point>) -> Option<(i64, i64, i64)> {
 }
 
 /// Returns (orientation, location of scanner)
-fn find_orientation(a: &Vec<Point>, b: &Vec<Point>) -> Option<(usize, (i64, i64, i64))> {
+fn find_orientation(a: &Vec<Point>, b: &[Point]) -> Option<(usize, (i64, i64, i64))> {
     for shift in 0..24 {
-        let mut new_b = b.clone();
+        let mut new_b = b.to_owned();
         orient_scanner(shift, &mut new_b);
         if let Some(location) = compare_two(a, &new_b) {
             return Some((shift, location));
@@ -193,7 +193,7 @@ fn part_one(scanners: Scanners) -> (usize, HashMap<usize, (i64, i64, i64)>) {
         // eprintln!("{:?}", unvisited);
         // println!("{:?}, known: {}", unvisited, known.len());
         // println!("  {:?}", locations);
-        if unvisited.len() == 0 {
+        if unvisited.is_empty() {
             break;
         }
         let i = unvisited.remove(0);

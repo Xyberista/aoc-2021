@@ -52,7 +52,7 @@ fn traverse(map: &Map, size: (usize, usize)) -> usize {
     unvisited.insert((0, 0));
 
     loop {
-        if unvisited.len() > 0 {
+        if !unvisited.is_empty() {
             let mut min = usize::MAX;
             let mut node: Point = (0, 0);
             for n in &unvisited {

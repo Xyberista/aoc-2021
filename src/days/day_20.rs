@@ -21,7 +21,7 @@ fn print_image(image: &Image) {
         for c in row {
             print!("{}", c);
         }
-        print!("\n");
+        println!();
     }
 }
 

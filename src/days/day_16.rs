@@ -83,7 +83,7 @@ impl Packet {
                 let group = stream.take(5);
                 bits_read += 5;
 
-                groups.push(group[1..].into_iter().collect());
+                groups.push(group[1..].iter().collect());
                 if group[0] == '0' {
                     break;
                 }

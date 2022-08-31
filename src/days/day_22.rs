@@ -14,8 +14,8 @@ pub fn day_22() {
     let input = get_input(22);
     let mut commands = Vec::new();
     for line in input.lines() {
-        let (st, rest) = line.split_once(" ").unwrap();
-        let mut s = rest.split(",");
+        let (st, rest) = line.split_once(' ').unwrap();
+        let mut s = rest.split(',');
         let x = s.next().unwrap().replace("x=", "");
         let mut x = x.split("..");
         let xs = x.next().unwrap().parse::<i32>().unwrap();
@@ -71,16 +71,17 @@ fn cuboid_volume((x, y, z): &Cuboid) -> i64 {
 }
 
 fn split_cuboid((x, y, z): &Cuboid, (ix, iy, iz): &Cuboid) -> Vec<Cuboid> {
-    let mut v: Vec<Cuboid> = Vec::new();
-    v.push(((x.0, ix.0), (y.0, y.1), (z.0, z.1)));
-    v.push(((ix.1, x.1), (y.0, y.1), (z.0, z.1)));
-    v.push(((ix.0, ix.1), (iy.0, iy.1), (iz.1, z.1)));
-    v.push(((ix.0, ix.1), (iy.0, iy.1), (z.0, iz.0)));
-    v.push(((ix.0, ix.1), (y.0, iy.0), (z.0, z.1)));
-    v.push(((ix.0, ix.1), (iy.1, y.1), (z.0, z.1)));
-    v.into_iter()
-        .filter(|(x, y, z)| x.0 != x.1 && y.0 != y.1 && z.0 != z.1)
-        .collect()
+    vec![
+        ((x.0, ix.0), (y.0, y.1), (z.0, z.1)),
+        ((ix.1, x.1), (y.0, y.1), (z.0, z.1)),
+        ((ix.0, ix.1), (iy.0, iy.1), (iz.1, z.1)),
+        ((ix.0, ix.1), (iy.0, iy.1), (z.0, iz.0)),
+        ((ix.0, ix.1), (y.0, iy.0), (z.0, z.1)),
+        ((ix.0, ix.1), (iy.1, y.1), (z.0, z.1)),
+    ]
+    .into_iter()
+    .filter(|(x, y, z)| x.0 != x.1 && y.0 != y.1 && z.0 != z.1)
+    .collect()
 }
 
 fn reboot(commands: &[State]) -> i64 {
@@ -121,7 +122,7 @@ fn reboot(commands: &[State]) -> i64 {
 
 fn part_one(commands: &[State]) -> i64 {
     let commands = commands
-        .into_iter()
+        .iter()
         .cloned()
         .filter(|s| match s {
             State::Off(x, y, z) => {
@@ -136,5 +137,5 @@ fn part_one(commands: &[State]) -> i64 {
 }
 
 fn part_two(commands: &[State]) -> i64 {
-    reboot(&commands)
+    reboot(commands)
 }

@@ -143,11 +143,10 @@ fn part_two(paper: &HashSet<Point>, folds: &[Fold], (sx, sy): (usize, usize)) ->
             }
             x += 1;
         }
-        println!("");
+        println!();
         y += 1;
         x = 0;
     }
 
-    let dots = 0;
-    dots
+    0
 }

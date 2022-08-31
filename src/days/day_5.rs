@@ -27,10 +27,8 @@ fn calc(input: &str, check_diagonals: bool) -> i32 {
         let [xs, ys, xe, ye] = parse_row(line);
         let dx = (xe - xs).signum();
         let dy = (ye - ys).signum();
-        if !check_diagonals {
-            if dx != 0 && dy != 0 {
-                continue;
-            }
+        if !check_diagonals && dx != 0 && dy != 0 {
+            continue;
         }
         let mut x = xs;
         let mut y = ys;

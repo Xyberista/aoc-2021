@@ -84,7 +84,7 @@ impl M {
                     // steps to immediately outside the room
                     let steps_from_room = r.size - r.room.len();
                     steps += steps_from_room;
-                    let mut new_pos = pos.clone();
+                    let mut new_pos = pos;
                     // check left of room
                     while new_pos > 0 {
                         new_pos -= 1;
@@ -92,29 +92,27 @@ impl M {
                         let mut new_p = self.map[new_pos].clone();
                         if new_p.occ != '.' {
                             break;
+                        } else if new_p.room.is_some() {
+                            continue;
                         } else {
-                            if new_p.room.is_some() {
-                                continue;
-                            } else {
-                                new_p.occ = l;
-                                let mut new = self.clone();
-                                new.map[new_pos] = new_p;
-                                let mut old_p = p.clone();
-                                old_p.room = Some(r.clone());
-                                new.map[pos] = old_p;
-                                let multiplier = match l {
-                                    'A' => 1,
-                                    'B' => 10,
-                                    'C' => 100,
-                                    'D' => 1000,
-                                    _ => unreachable!(),
-                                };
-                                new.energy += steps * multiplier;
-                                moves.push(new)
-                            }
+                            new_p.occ = l;
+                            let mut new = self.clone();
+                            new.map[new_pos] = new_p;
+                            let mut old_p = p.clone();
+                            old_p.room = Some(r.clone());
+                            new.map[pos] = old_p;
+                            let multiplier = match l {
+                                'A' => 1,
+                                'B' => 10,
+                                'C' => 100,
+                                'D' => 1000,
+                                _ => unreachable!(),
+                            };
+                            new.energy += steps * multiplier;
+                            moves.push(new)
                         }
                     }
-                    new_pos = pos.clone();
+                    new_pos = pos;
                     steps = steps_from_room;
                     // check right of room
                     while new_pos < 10 {
@@ -123,26 +121,24 @@ impl M {
                         let mut new_p = self.map[new_pos].clone();
                         if new_p.occ != '.' {
                             break;
+                        } else if new_p.room.is_some() {
+                            continue;
                         } else {
-                            if new_p.room.is_some() {
-                                continue;
-                            } else {
-                                new_p.occ = l;
-                                let mut new = self.clone();
-                                new.map[new_pos] = new_p;
-                                let mut old_p = p.clone();
-                                old_p.room = Some(r.clone());
-                                new.map[pos] = old_p;
-                                let multiplier = match l {
-                                    'A' => 1,
-                                    'B' => 10,
-                                    'C' => 100,
-                                    'D' => 1000,
-                                    _ => unreachable!(),
-                                };
-                                new.energy += steps * multiplier;
-                                moves.push(new)
-                            }
+                            new_p.occ = l;
+                            let mut new = self.clone();
+                            new.map[new_pos] = new_p;
+                            let mut old_p = p.clone();
+                            old_p.room = Some(r.clone());
+                            new.map[pos] = old_p;
+                            let multiplier = match l {
+                                'A' => 1,
+                                'B' => 10,
+                                'C' => 100,
+                                'D' => 1000,
+                                _ => unreachable!(),
+                            };
+                            new.energy += steps * multiplier;
+                            moves.push(new)
                         }
                     }
                 }
@@ -234,9 +230,9 @@ impl fmt::Display for M {
             for x in row {
                 write!(f, "{}", x)?;
             }
-            write!(f, "\n")?;
+            writeln!(f)?;
         }
-        write!(f, "\n")?;
+        writeln!(f)?;
 
         Ok(())
     }
@@ -277,13 +273,11 @@ fn run(m: M) -> M {
         // println!("{}", map);
         if map.is_done() {
             break map;
+        } else if visited.contains(&map) {
+            continue;
         } else {
-            if visited.contains(&map) {
-                continue;
-            } else {
-                visited.insert(map.clone());
-                moves.extend(map.valid_moves());
-            }
+            visited.insert(map.clone());
+            moves.extend(map.valid_moves());
         }
     }
 }

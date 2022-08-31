@@ -12,14 +12,14 @@ type Board = Vec<Vec<i32>>;
 
 fn part_one(input: &str) -> i32 {
     let lines: Vec<&str> = input.lines().collect();
-    let numbers = lines[0].split(",").map(|s| s.parse::<i32>().unwrap());
+    let numbers = lines[0].split(',').map(|s| s.parse::<i32>().unwrap());
     let mut boards: Vec<Board> = Vec::new();
-    for board in lines[2..].split(|c| *c == "") {
+    for board in lines[2..].split(|c| c.is_empty()) {
         let mut b: Board = Vec::new();
         for &line in board {
             let line = line.replace("  ", " ");
             let line = line.trim();
-            b.push(line.split(" ").map(|s| s.parse::<i32>().unwrap()).collect());
+            b.push(line.split(' ').map(|s| s.parse::<i32>().unwrap()).collect());
         }
         boards.push(b);
     }
@@ -49,14 +49,14 @@ fn part_one(input: &str) -> i32 {
 
 fn part_two(input: &str) -> i32 {
     let lines: Vec<&str> = input.lines().collect();
-    let numbers = lines[0].split(",").map(|s| s.parse::<i32>().unwrap());
+    let numbers = lines[0].split(',').map(|s| s.parse::<i32>().unwrap());
     let mut boards: Vec<Board> = Vec::new();
-    for board in lines[2..].split(|c| *c == "") {
+    for board in lines[2..].split(|c| c.is_empty()) {
         let mut b: Board = Vec::new();
         for &line in board {
             let line = line.replace("  ", " ");
             let line = line.trim();
-            b.push(line.split(" ").map(|s| s.parse::<i32>().unwrap()).collect());
+            b.push(line.split(' ').map(|s| s.parse::<i32>().unwrap()).collect());
         }
         boards.push(b);
     }
@@ -73,7 +73,7 @@ fn part_two(input: &str) -> i32 {
                 n_boards.push(n_b);
             }
         }
-        if n_boards.len() == 0 {
+        if n_boards.is_empty() {
             let l = boards[0].clone();
             last = change(l, n);
             f = n;

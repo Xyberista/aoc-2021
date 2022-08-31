@@ -21,14 +21,14 @@ fn step_one(template: String, rules: &HashMap<&str, char>) -> String {
     let mut end = 1;
     let max = template.len();
     while end < max {
-        let pair = c[start..=end].into_iter().collect::<String>();
+        let pair = c[start..=end].iter().collect::<String>();
         if rules.contains_key(pair.as_str()) {
             changes.push((rules[pair.as_str()], end));
         }
         start += 1;
         end += 1;
     }
-    while changes.len() != 0 {
+    while !changes.is_empty() {
         let (new, index) = changes.remove(0);
         c.insert(index, new);
         changes = changes.into_iter().map(|(i, v)| (i, v + 1)).collect();
@@ -56,7 +56,7 @@ fn part_two(template: &str, rules: &HashMap<&str, char>) -> i64 {
     // comb, count
     let mut comb: HashMap<String, i64> = HashMap::new();
     for p in c[..].windows(2) {
-        let s = p.into_iter().collect::<String>();
+        let s = p.iter().collect::<String>();
         *comb.entry(s).or_default() += 1;
     }
     for _ in 0..40 {

@@ -42,14 +42,12 @@ fn traverse<'a>(current: &str, map: Map<'a>, visited: Vec<&'a str>) -> HashSet<V
                 paths.extend(new_paths);
             }
         }
-    } else {
-        if visited.len() >= 2 {
-            let index = visited.len() - 2;
-            let new = visited[index];
-            if !(is_small(new) && visited.contains(&new)) {
-                let new_paths = traverse(new, map.clone(), visited.clone());
-                paths.extend(new_paths);
-            }
+    } else if visited.len() >= 2 {
+        let index = visited.len() - 2;
+        let new = visited[index];
+        if !(is_small(new) && visited.contains(&new)) {
+            let new_paths = traverse(new, map.clone(), visited.clone());
+            paths.extend(new_paths);
         }
     }
     paths
@@ -83,24 +81,20 @@ fn traverse_2<'a>(
                 paths.extend(new_paths);
             }
         }
-    } else {
-        if visited.len() >= 2 {
-            let index = visited.len() - 2;
-            let new = visited[index];
-            if is_small(new) {
-                if new == twice {
-                    if visited.iter().filter(|c| **c == twice).count() >= 2 {
-                        return paths;
-                    }
-                }
-                if visited.contains(&new) {
-                    return paths;
-                }
+    } else if visited.len() >= 2 {
+        let index = visited.len() - 2;
+        let new = visited[index];
+        if is_small(new) {
+            if new == twice && visited.iter().filter(|c| **c == twice).count() >= 2 {
+                return paths;
             }
-
-            let new_paths = traverse_2(new, map.clone(), visited.clone(), twice);
-            paths.extend(new_paths);
+            if visited.contains(&new) {
+                return paths;
+            }
         }
+
+        let new_paths = traverse_2(new, map.clone(), visited.clone(), twice);
+        paths.extend(new_paths);
     }
     paths
 }

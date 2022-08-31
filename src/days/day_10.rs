@@ -1,5 +1,3 @@
-use core::panic;
-
 use super::super::utils::*;
 
 pub fn day_10() {
@@ -10,8 +8,7 @@ pub fn day_10() {
 
 fn is_corrupt(line: &str) -> Option<char> {
     let mut line = line.chars();
-    let mut del: Vec<char> = Vec::new();
-    del.push(line.next().unwrap());
+    let mut del: Vec<char> = vec![line.next().unwrap()];
     for c in line {
         if ")]}>".contains(c) {
             let p = del.pop().unwrap();
@@ -27,10 +24,8 @@ fn is_corrupt(line: &str) -> Option<char> {
                 if p != '{' {
                     return Some(c);
                 }
-            } else if c == '>' {
-                if p != '<' {
+            } else if c == '>' && p != '<' {
                     return Some(c);
-                }
             }
         } else {
             del.push(c);

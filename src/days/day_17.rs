@@ -52,8 +52,7 @@ fn part_one(_input: &str, (xs, xe): P, (ys, ye): P) -> i32 {
             }
         }
     }
-    let max = heights.into_iter().max().unwrap();
-    max
+    heights.into_iter().max().unwrap()
 }
 
 fn part_two(_input: &str, (xs, xe): P, (ys, ye): P) -> usize {
@@ -83,12 +82,8 @@ fn run(v: P, (xs, xe): P, (ys, ye): P) -> Option<i32> {
 
         heights.push(p.1);
 
-        if v.0 == 0 {
-            if !x_range.contains(&p.0) || p.1 < ys {
-                return None;
-            } else if p.1 < ys {
-                return None;
-            }
+        if v.0 == 0 && (!x_range.contains(&p.0) || p.1 < ys) {
+            return None;
         }
         if x_range.contains(&p.0) && y_range.contains(&p.1) {
             let max = heights.into_iter().max().unwrap();

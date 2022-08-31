@@ -1,12 +1,16 @@
 use super::super::utils::*;
 
+pub fn input() -> String {
+    get_input(3)
+}
+
 pub fn day_3() {
-    let input = get_input(3);
-    // println!("Part 1: {}", part_one(&input));
+    let input = input();
+    println!("Part 1: {}", part_one(&input));
     println!("Part 2: {}", part_two(&input));
 }
 
-fn part_one(input: &str) -> u32 {
+pub fn part_one(input: &str) -> u32 {
     let mut gamma = String::new();
     let mut epsilon = String::new();
     let mut ones = [0; 12];
@@ -21,7 +25,7 @@ fn part_one(input: &str) -> u32 {
         }
     }
     let ones = ones.to_vec();
-    println!("{:?}", ones);
+    // println!("{:?}", ones);
     for (a, b) in ones.into_iter().zip(zeros) {
         if a > b {
             gamma += "1";
@@ -35,7 +39,8 @@ fn part_one(input: &str) -> u32 {
     let e = u32::from_str_radix(&epsilon, 2).unwrap();
     g * e
 }
-fn part_two(input: &str) -> u32 {
+
+pub fn part_two(input: &str) -> u32 {
     let mut ogr: Vec<&str> = input.lines().collect();
     let mut position = 0;
     loop {
@@ -47,7 +52,7 @@ fn part_two(input: &str) -> u32 {
         }
         position += 1;
     }
-    println!("{:?}", &ogr);
+    // println!("{:?}", &ogr);
 
     let mut csr: Vec<&str> = input.lines().collect();
     let mut position = 0;
@@ -62,12 +67,12 @@ fn part_two(input: &str) -> u32 {
     }
     let ogr = u32::from_str_radix(&ogr.concat(), 2).unwrap();
     let csr = u32::from_str_radix(&csr.concat(), 2).unwrap();
-    println!("{:?}", ogr);
-    println!("{:?}", csr);
+    // println!("{:?}", ogr);
+    // println!("{:?}", csr);
     ogr * csr
 }
 
-fn get_most<'a>(possible: Vec<&'a str>) -> Vec<i32> {
+fn get_most(possible: Vec<&str>) -> Vec<i32> {
     let mut ones = [0; 12];
     let mut zeros = [0; 12];
     for line in possible {
@@ -82,20 +87,15 @@ fn get_most<'a>(possible: Vec<&'a str>) -> Vec<i32> {
     let most: Vec<i32> = ones
         .iter()
         .zip(zeros)
-        .map(|(&a, b)| {
-            if a > b {
-                1
-            } else if b > a {
-                0
-            } else {
-                1
-            }
+        .map(|(&a, b)| match a.cmp(&b) {
+            std::cmp::Ordering::Greater | std::cmp::Ordering::Equal => 1,
+            std::cmp::Ordering::Less => 0,
         })
         .collect();
     most
 }
 
-fn get_least<'a>(possible: Vec<&'a str>) -> Vec<i32> {
+fn get_least(possible: Vec<&str>) -> Vec<i32> {
     let mut ones = [0; 12];
     let mut zeros = [0; 12];
     for line in possible {
@@ -110,20 +110,15 @@ fn get_least<'a>(possible: Vec<&'a str>) -> Vec<i32> {
     let most: Vec<i32> = ones
         .iter()
         .zip(zeros)
-        .map(|(&a, b)| {
-            if a > b {
-                0
-            } else if b > a {
-                1
-            } else {
-                0
-            }
+        .map(|(&a, b)| match a.cmp(&b) {
+            std::cmp::Ordering::Greater | std::cmp::Ordering::Equal => 0,
+            std::cmp::Ordering::Less => 1,
         })
         .collect();
     most
 }
 
-fn filter_once<'a>(most: Vec<i32>, possible: Vec<&'a str>, position: usize) -> Vec<&'a str> {
+fn filter_once(most: Vec<i32>, possible: Vec<&str>, position: usize) -> Vec<&str> {
     let mut pos = Vec::new();
     for p in possible {
         let chars = p.chars().collect::<Vec<_>>();

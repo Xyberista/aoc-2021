@@ -31,9 +31,9 @@ fn die_one_total(start: i64) -> i64 {
     (0..3).map(|n| start + n).sum()
 }
 
-fn part_one(input: &Vec<Player>) -> i64 {
+fn part_one(input: &[Player]) -> i64 {
     let mut die = 1;
-    let mut players = input.clone();
+    let mut players = input.to_owned();
     let mut p = 0;
     let mut die_rolls = 0;
     loop {

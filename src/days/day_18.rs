@@ -83,7 +83,7 @@ impl Num {
                 .collect::<String>();
             let new_index = new_input.find(',').unwrap();
             let (a, b) = input.split_at(index + new_index);
-            let b = b.replacen(",", "", 1);
+            let b = b.replacen(',', "", 1);
             let left = Num::new(a);
             let right = Num::new(&b);
             Self::Pair {
@@ -91,7 +91,7 @@ impl Num {
                 right: Box::new(right),
             }
         } else {
-            let input = input.chars().filter(|c| c.is_digit(10)).collect::<String>();
+            let input = input.chars().filter(|c| c.is_ascii_digit()).collect::<String>();
             let num = input.parse::<i32>().unwrap();
             Self::Val(num)
         }

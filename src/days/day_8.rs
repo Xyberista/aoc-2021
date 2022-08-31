@@ -2,20 +2,24 @@ use std::collections::HashMap;
 
 use super::super::utils::*;
 
+pub fn input() -> String {
+    get_input(8)
+}
+
 pub fn day_8() {
-    let input = get_input(8);
+    let input = input();
     println!("Part 1: {}", part_one(&input));
     println!("Part 2: {}", part_two(&input));
 }
 
-fn part_one(input: &str) -> i32 {
+pub fn part_one(input: &str) -> i32 {
     let mut t = 0;
     for line in input.lines() {
-        let (pat, out) = line.split_once("|").unwrap();
+        let (pat, out) = line.split_once('|').unwrap();
         let mut n: HashMap<i32, String> = HashMap::new();
         let pat = pat.trim();
         let out = out.trim();
-        for p in pat.split(" ").chain(out.split(" ")) {
+        for p in pat.split(' ').chain(out.split(' ')) {
             let mut p = p.chars().collect::<Vec<char>>();
             p.sort();
             let p = p.into_iter().collect::<String>();
@@ -29,13 +33,12 @@ fn part_one(input: &str) -> i32 {
                 n.insert(8, p);
             }
         }
-        let v = n.values().collect::<Vec<_>>();
         let mut c = 0;
-        for p in out.split(" ") {
+        for p in out.split(' ') {
             let mut p = p.chars().collect::<Vec<char>>();
             p.sort();
             let p = p.into_iter().collect::<String>();
-            if v.contains(&&p) {
+            if n.values().any(|v| *v == p) {
                 c += 1;
             }
         }
@@ -44,12 +47,12 @@ fn part_one(input: &str) -> i32 {
     t
 }
 
-fn part_two(input: &str) -> i32 {
+pub fn part_two(input: &str) -> i32 {
     let mut t = 0;
     for line in input.lines() {
         let (pre, out) = line.split_once(" | ").unwrap();
         let map = parse_row(pre);
-        let digits: String = out.split(" ").map(|s| to_digit(&map, s)).collect();
+        let digits: String = out.split(' ').map(|s| to_digit(&map, s)).collect();
         let number = digits.parse::<i32>().unwrap();
         t += number;
     }
@@ -58,7 +61,7 @@ fn part_two(input: &str) -> i32 {
 
 fn to_map(row: &str) -> HashMap<i32, Vec<String>> {
     let mut m: HashMap<i32, Vec<String>> = HashMap::new();
-    for i in row.replace("|", "").split(" ") {
+    for i in row.replace('|', "").split(' ') {
         let mut c = i.chars().collect::<Vec<_>>();
         c.sort();
         let c: String = c.into_iter().collect();
@@ -84,7 +87,7 @@ fn parse_row(row: &str) -> HashMap<String, i32> {
     let seven = lens[&3][0].clone();
     let eight = lens[&7][0].clone();
 
-    let _a: char = seven.chars().filter(|c| !one.contains(*c)).next().unwrap();
+    // let _a: char = seven.chars().filter(|c| !one.contains(*c)).next().unwrap();
     let bd: String = four.chars().filter(|c| !one.contains(*c)).collect();
     let eg: String = eight
         .chars()

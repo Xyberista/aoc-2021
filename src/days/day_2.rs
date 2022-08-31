@@ -10,7 +10,7 @@ fn part_one(input: &str) -> i32 {
     let mut h = 0;
     let mut d = 0;
     for line in input.lines() {
-        let mut s = line.split(" ");
+        let mut s = line.split(' ');
         let a = s.next().unwrap();
         let b = s.next().unwrap().parse::<i32>().unwrap();
         match a {
@@ -28,7 +28,7 @@ fn part_two(input: &str) -> i32 {
     let mut d = 0;
     let mut aim = 0;
     for line in input.lines() {
-        let mut s = line.split(" ");
+        let mut s = line.split(' ');
         let a = s.next().unwrap();
         let b = s.next().unwrap().parse::<i32>().unwrap();
         match a {
