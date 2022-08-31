@@ -11,9 +11,10 @@ name = "aoc_bin"
 path = "src/main.rs"
 
 [dependencies]
+# rayon = "1.5.3"
 
 [dev-dependencies]
-criterion = "0.3.6"
+criterion = { version = "0.3.6", features = ["html_reports"] }
 
 [[bench]]
 name = "star_benchmark"

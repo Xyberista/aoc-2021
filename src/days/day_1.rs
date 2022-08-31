@@ -1,12 +1,16 @@
 use super::super::utils::*;
 
+pub fn input() -> String {
+    get_input(1)
+}
+
 pub fn day_1() {
     let input = get_input(1);
     println!("{}", part_one(&input));
     println!("{}", part_two(&input));
 }
 
-fn part_one(input: &str) -> i32 {
+pub fn part_one(input: &str) -> i32 {
     let lines: Vec<i32> = input.lines().map(|c| c.parse::<i32>().unwrap()).collect();
     let mut t = 0;
     for w in lines.windows(2) {
@@ -16,7 +20,7 @@ fn part_one(input: &str) -> i32 {
     }
     t
 }
-fn part_two(input: &str) -> i32 {
+pub fn part_two(input: &str) -> i32 {
     let lines: Vec<i32> = input.lines().map(|c| c.parse::<i32>().unwrap()).collect();
     let mut t = 0;
     let mut windows = lines.windows(3);
